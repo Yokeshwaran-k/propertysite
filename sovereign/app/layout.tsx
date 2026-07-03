@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./styles/style.css";
-import "./styles/all.min.css";
-import "./styles/bootstrap.min.css";
-import "./styles/fancybox.min.css";
-import "./styles/font-awesome.css";
-import "./styles/font-awesome.min.css";
-import "./styles/ipad.css";
-import "./styles/jPushMenu.css";
-import "./styles/mobile.css";
-//import "./styles/A.styles.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Script from "next/script";
