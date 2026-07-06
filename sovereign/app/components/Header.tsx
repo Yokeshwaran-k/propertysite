@@ -9,9 +9,9 @@ export default function Header() {
 
   const menuItems = [
     { name: "SALES", href: "/sales" },
-    { name: "LETTINGS", href: "#" },
-    { name: "ABOUT US", href: "#" },
-    { name: "OUR SERVICES", href: "#" },
+    { name: "LETTINGS", href: "/lettings" },
+    { name: "ABOUT US", href: "/about-us" },
+    { name: "OUR SERVICES", href: "" },
     { name: "REGISTER", href: "#" },
     { name: "NEWS", href: "#" },
     { name: "CONTACT", href: "#" },
