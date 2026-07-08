@@ -8,7 +8,7 @@ export default function LettingsHero() {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* LEFT: Dark content panel */}
         <div className="bg-[#4f5054] flex items-center px-6 sm:px-12 lg:px-16 py-16 lg:py-0">
-          <div className="max-w-md">
+          <div className="max-w-lg py-16">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-[#e2bf6d] uppercase">
               <Link href="/" className="hover:text-amber-400 transition-colors">
