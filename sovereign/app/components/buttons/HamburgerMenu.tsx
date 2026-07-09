@@ -38,7 +38,7 @@ export const pageContent = {
     title: "Register With Us",
     href: "/register",
     description:
-      "Register your details with us and stay updated with properties matching your requirements.",
+      "Register your property requirements with us and we'll be in touch when the right property hits the market.",
     },
   
    ourservices: {
