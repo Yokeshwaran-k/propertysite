@@ -5,6 +5,7 @@ import ConveyancingSection from "../ConveyancingSection";
 import PartnersLogo from "../PartnersLogo";
 import LatestNewsSection from "../LatestNewsSection";
 import Getvaluation from "../buttons/Getvaluation";
+import HamburgerMenu, { pageContent } from "../buttons/HamburgerMenu";
 
 
 export default function AboutHero() {
@@ -14,20 +15,7 @@ export default function AboutHero() {
       <div className="mx-auto grid max-w-[1920px] grid-cols-1 lg:grid-cols-12 lg:min-h-[700px]">
         <div className="order-2 flex items-center px-8 py-16 lg:order-1 lg:col-span-5 lg:px-20">
           <div className="max-w-xl">
-            <nav className="mb-4 flex items-center text-base font-semibold uppercase tracking-[0.2em] text-[#d4a437]">
-              <Link href="/" className="transition hover:text-white">
-                Home
-              </Link>
-              <ChevronRight size={14} className="mx-2" />
-              <span><Link href="/about-us" className="transition hover:text-white">About Us</Link></span>
-            </nav>
-
-            <h1 className="mb-6 text-4xl text-white font-bold lg:text-4xl">
-              About Us
-            </h1>
-            <h3 className="mb-6  text-white ">
-             Since our foundation in 1989, Sovereign House has become one of East London’s most progressive and successful estate agents.
-            </h3>
+           <HamburgerMenu {...pageContent.about} />
 
            <Getvaluation />
           </div>

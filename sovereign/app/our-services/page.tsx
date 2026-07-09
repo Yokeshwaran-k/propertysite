@@ -1,10 +1,12 @@
-import ServiceHero from "@/app/components/ourservices/ServicesHero";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Hamburger } from "lucide-react";
 import ConveyancingSection from "../components/ConveyancingSection";
 import LatestNewsSection from "../components/LatestNewsSection";
 import PartnersLogo from "../components/PartnersLogo";
+import HamburgerMenu, { pageContent } from "@/app/components/buttons/HamburgerMenu";
+import Getvaluation from "@/app/components/buttons/Getvaluation";
 
 
 export default function OurServices() {
@@ -15,17 +17,8 @@ export default function OurServices() {
         {/* LEFT: Dark content panel */}
         <div className="bg-neutral-600 flex items-center px-6 sm:px-12 lg:px-16 py-16 lg:py-0">
           <div className="max-w-md">
-            <nav className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-amber-500 uppercase">
-              <Link href="/" className="hover:text-amber-400 transition-colors">
-                Home
-              </Link>
-              <ChevronRight className="w-3 h-3" />
-              <span>Our Services</span>
-            </nav>
-
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold text-white">
-              Our Services
-            </h1>
+              <HamburgerMenu {...pageContent.ourservices} />
+               <Getvaluation/>
           </div>
         </div>
 

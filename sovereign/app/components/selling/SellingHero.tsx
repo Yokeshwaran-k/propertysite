@@ -5,6 +5,7 @@ import ConveyancingSection from "../ConveyancingSection";
 import PartnersLogo from "../PartnersLogo";
 import LatestNewsSection from "../LatestNewsSection";
 import Getvaluation from "../buttons/Getvaluation";
+import HamburgerMenu, { pageContent } from "../buttons/HamburgerMenu";
 
 export default function SellingHero() {
     return (
@@ -13,24 +14,9 @@ export default function SellingHero() {
       <div className="mx-auto grid max-w-[1920px] grid-cols-1 lg:grid-cols-12 lg:min-h-[700px]">
         <div className="order-2 flex items-center px-8 py-16 lg:order-1 lg:col-span-5 lg:px-20">
           <div className="max-w-md">
-            <nav className="mb-4 flex items-center text-base font-semibold uppercase tracking-[0.2em] text-[#d4a437]">
-              <Link href="/" className="transition hover:text-white">
-                Home
-              </Link>
-              <ChevronRight size={14} className="mx-2" />
-              <span>Selling your property</span>
-            </nav>
+            <HamburgerMenu {...pageContent.selling} />
 
-            <h1 className="mb-6 text-4xl text-white font-bold lg:text-4xl">
-              Selling your property
-            </h1>
-
-            <Link
-              href="/valuation-request"
-              className="inline-flex items-center justify-center bg-[#d4a437] px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition duration-300 hover:bg-[#b88b28]"
-            >
-              Get A Free Valuation
-            </Link>
+             <Getvaluation/>
           </div>
         </div>
 
@@ -105,7 +91,7 @@ export default function SellingHero() {
               Get a Free Valuation
             </Link>
 
-                  <Getvaluation/>
+                 
             </div>
           </div>
         </div>

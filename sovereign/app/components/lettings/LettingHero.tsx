@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import Getvaluation from "../buttons/Getvaluation";
+import HamburgerMenu, { pageContent } from "../buttons/HamburgerMenu";
 
 export default function LettingsHero() {
   return (
@@ -11,18 +12,8 @@ export default function LettingsHero() {
         <div className="bg-[#4f5054] flex items-center px-6 sm:px-12 lg:px-16 py-16 lg:py-0">
           <div className="max-w-lg py-16">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-[#e2bf6d] uppercase">
-              <Link href="/" className="hover:text-amber-400 transition-colors">
-                Home
-              </Link>
-              <ChevronRight className="w-3 h-3" />
-              <span>Lettings</span>
-            </nav>
-
-            {/* Heading */}
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold text-white">
-              Lettings
-            </h1>
+            <HamburgerMenu {...pageContent.letting} />
+            
 
             {/* Copy */}
             <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-neutral-200">
