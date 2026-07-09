@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Script from "next/script";
+import Link from "next/link";
+import Image from "next/image";
 
 
 const geistSans = Geist({

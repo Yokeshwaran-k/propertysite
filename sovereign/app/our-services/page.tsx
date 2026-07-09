@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import ConveyancingSection from "../components/ConveyancingSection";
 import LatestNewsSection from "../components/LatestNewsSection";
 import PartnersLogo from "../components/PartnersLogo";
+import Getvaluation from "../components/buttons/Getvaluation";
 
 
 export default function OurServices() {
@@ -26,6 +27,7 @@ export default function OurServices() {
             <h1 className="mt-3 text-4xl md:text-5xl font-bold text-white">
               Our Services
             </h1>
+            <Getvaluation />
           </div>
         </div>
 
