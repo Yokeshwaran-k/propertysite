@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import Getvaluation from "../buttons/Getvaluation";
 
 export default function LettingsHero() {
   return (
@@ -46,12 +47,7 @@ export default function LettingsHero() {
             </div>
 
             {/* CTA */}
-            <Link
-              href="/valuation-request"
-              className="mt-8 inline-flex items-center justify-center bg-[#c69627] hover:bg-amber-600 transition-colors text-white text-xs font-semibold tracking-widest uppercase px-8 py-4"
-            >
-              Get A Free Valuation
-            </Link>
+            <Getvaluation />
           </div>
         </div>
 
