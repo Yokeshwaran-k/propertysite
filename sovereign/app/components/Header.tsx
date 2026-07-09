@@ -11,10 +11,10 @@ export default function Header() {
     { name: "SALES", href: "/selling" },
     { name: "LETTINGS", href: "/lettings" },
     { name: "ABOUT US", href: "/about-us" },
-    { name: "OUR SERVICES", href: "" },
-    { name: "REGISTER", href: "#" },
-    { name: "NEWS", href: "#" },
-    { name: "CONTACT", href: "#" },
+    { name: "OUR SERVICES", href: "/our-services" },
+    { name: "REGISTER", href: "/register" },
+    { name: "NEWS", href: "/property-news" },
+    { name: "CONTACT", href: "/contact-us" },
   ];
 
   return (
