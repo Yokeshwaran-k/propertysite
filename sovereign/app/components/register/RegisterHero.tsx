@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import ConveyancingSection from "../ConveyancingSection";
 import PartnersLogo from "../PartnersLogo";
 import LatestNewsSection from "../LatestNewsSection";
+import HamburgerMenu, { pageContent } from "../buttons/HamburgerMenu";
 
 
 export default function RegisterHero() {
@@ -13,20 +14,9 @@ export default function RegisterHero() {
       <div className="mx-auto grid max-w-[1920px] grid-cols-1 lg:grid-cols-12 lg:min-h-[700px]">
         <div className="order-2 flex items-center px-8 py-16 lg:order-1 lg:col-span-5 lg:px-20">
           <div className="max-w-xl">
-            <nav className="mb-4 flex items-center text-base font-semibold uppercase tracking-[0.2em] text-[#d4a437]">
-              <Link href="/" className="transition hover:text-white">
-                Home
-              </Link>
-              <ChevronRight size={14} className="mx-2" />
-              <span><Link href="/register" className="transition hover:text-white">Register</Link></span>
-            </nav>
+            <HamburgerMenu {...pageContent.register} />
 
-            <h1 className="mb-6 text-4xl text-white font-bold lg:text-4xl">
-             Register
-            </h1>
-            <h3 className="mb-6  text-white ">
-            Register your property requirements with us and we&apos;ll be in touch when the right property hits the market.
-            </h3>
+            
 
             
           </div>
