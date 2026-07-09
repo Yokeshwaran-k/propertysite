@@ -13,13 +13,8 @@ export default function Header() {
     { name: "ABOUT US", href: "/about-us" },
     { name: "OUR SERVICES", href: "/our-services" },
     { name: "REGISTER", href: "/register" },
-<<<<<<< HEAD
     { name: "NEWS", href: "/property-news" },
     { name: "CONTACT", href: "/contact-us" },
-=======
-    { name: "NEWS", href: "/news" },
-    { name: "CONTACT", href: "/contact" },
->>>>>>> 44c2aa24ebdc7ee9531e7b8afde614d12bb2718f
   ];
 
   return (
