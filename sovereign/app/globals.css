@@ -3,8 +3,10 @@
 :root {
   --background: #ffffff;
   --btn-background: #c69627;
+  --text-color: #e2bf6d;
  
 }
+
 
 @theme inline {
   --color-background: var(--background);

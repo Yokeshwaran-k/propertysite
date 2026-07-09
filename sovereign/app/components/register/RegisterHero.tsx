@@ -5,6 +5,7 @@ import ConveyancingSection from "../ConveyancingSection";
 import PartnersLogo from "../PartnersLogo";
 import LatestNewsSection from "../LatestNewsSection";
 import HamburgerMenu, { pageContent } from "../buttons/HamburgerMenu";
+import RegisterForm from "./RegisterForm";
 
 
 export default function RegisterHero() {
@@ -36,13 +37,9 @@ export default function RegisterHero() {
         </div>
       </div>
     </section>
-
-     
-
-
-            <ConveyancingSection />
+            <RegisterForm />
             <LatestNewsSection />
-                  <PartnersLogo />
+            <PartnersLogo />
         </div>
     );
 }

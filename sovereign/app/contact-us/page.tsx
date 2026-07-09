@@ -6,6 +6,7 @@ import LatestNewsSection from "../components/LatestNewsSection";
 import PartnersLogo from "../components/PartnersLogo";
 import ContactForm from "../components/contactForm/ContactFrom";
 import { Phone, Mail } from "lucide-react";
+import HamburgerMenu, { pageContent } from "../components/buttons/HamburgerMenu";
 
 export default function OurServices() {
   return (
@@ -15,20 +16,7 @@ export default function OurServices() {
         {/* LEFT: Dark content panel */}
         <div className="bg-neutral-600 flex items-center px-6 sm:px-12 lg:px-16 py-16 lg:py-0">
           <div className="max-w-xxl">
-            <nav className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-amber-500 uppercase">
-              <Link href="/" className="hover:text-amber-400 transition-colors">
-                Home
-              </Link>
-              <ChevronRight className="w-3 h-3" />
-              <span>Contact Us</span>
-            </nav>
-
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold text-white">
-              Contact Sovereign House estate agents & letting agents in Hackney
-            </h1>
-            <p className="mt-4 text-white">
-              With 30+ years of local expertise, Sovereign House Hackney Estate Agents leverages deep community connections to uncover unique opportunities. We use cutting-edge marketing tools to maximise property value and deliver outstanding results. 
-            </p>
+             <HamburgerMenu {...pageContent.contact} />
             
           </div>
         </div>
@@ -65,14 +53,14 @@ export default function OurServices() {
             <div className="mt-5 flex flex-col gap-2">
               
                 <a href="tel:02089855800"
-                className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-600 transition-colors w-fit"
+                className="inline-flex items-center gap-2 text-sm text-[var(--text-color)] transition-colors w-fit"
               >
                 <Phone className="w-4 h-4" />
                 020 8985 5800
               </a>
               
                 <a href="mailto:sales@sovereign-house.com"
-                className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-600 transition-colors w-fit"
+                className="inline-flex items-center gap-2 text-sm not-[]:text-[var(--text-color)] transition-colors w-fit"
               >
                 <Mail className="w-4 h-4" />
                 sales@sovereign-house.com
@@ -143,7 +131,7 @@ export default function OurServices() {
               </span>
               <span className="text-xs text-neutral-500 -ml-2">Reviews</span>
 
-              <p className="text-sm text-amber-500">
+              <p className="text-sm text-[var(--text-color)] no-underline">
                 4.4/5 Ratings from 99 customer reviews
               </p>
             </div>

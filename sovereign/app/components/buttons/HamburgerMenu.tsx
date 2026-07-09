@@ -48,6 +48,13 @@ export const pageContent = {
     description:
       "",
   },
+   contact: {
+    breadcrumb: "Contact Us",
+    title: "Contact Sovereign House estate agents & letting agents in Hackney",
+    href: "/contact-us",
+    description:
+      "With 30+ years of local expertise, Sovereign House Hackney Estate Agents leverages deep community connections to uncover unique opportunities. We use cutting-edge marketing tools to maximise property value and deliver outstanding results.",
+  },
 };
 
 export default function HamburgerMenu({

@@ -94,12 +94,11 @@ export default function PropertyMatchingForm() {
   }
 
   const inputClasses =
-    "w-full bg-neutral-100 border border-neutral-100 focus:border-neutral-400 focus:outline-none px-4 py-3 text-sm text-neutral-700 transition-colors";
+    "w-full bg-neutral-100 border border-neutral-100 focus:border-neutral-400 focus:outline-none px-4 py-3 text-md text-neutral-700 transition-colors";
   const selectClasses = `${inputClasses} appearance-none bg-no-repeat bg-right pr-10`;
-  const labelClasses = "block text-sm text-neutral-700 mb-2";
-  const sectionHeadingClasses =
-    "text-sm font-semibold tracking-widest text-amber-500 uppercase border-b border-neutral-200 pb-3";
-
+  const labelClasses = "block text-md text-neutral-700 mb-2";
+ const sectionHeadingClasses =
+  "text-md font-semibold tracking-widest text-[var(--text-color)] uppercase border-b border-neutral-200 pb-3";
   const chevronBg = {
     backgroundImage:
       "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23404040'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E\")",
@@ -124,7 +123,7 @@ export default function PropertyMatchingForm() {
 
   return (
     <section className="bg-white py-16">
-      <div className="mx-auto max-w-3xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         <form onSubmit={handleSubmit}>
           {/* SECTION: Contact details */}
           <h2 className={sectionHeadingClasses}>Your Contact Details</h2>
@@ -330,7 +329,7 @@ export default function PropertyMatchingForm() {
             Your Explicit Consent
           </h2>
 
-          <div className="mt-6 space-y-4 text-sm text-neutral-600 leading-relaxed">
+          <div className="mt-6 space-y-4 text-md text-neutral-600 leading-relaxed">
             <p>
               You must be 18 years or older to register for our property
               matching service through this website (&quot;Service&quot;).
@@ -347,7 +346,7 @@ export default function PropertyMatchingForm() {
           </div>
 
           <div className="mt-4 space-y-3">
-            <label className="flex items-start gap-2.5 text-sm text-neutral-700">
+            <label className="flex items-start gap-2.5 text-md text-neutral-700">
               <input
                 type="checkbox"
                 checked={form.consentProperties}
@@ -360,7 +359,7 @@ export default function PropertyMatchingForm() {
               of interest.
             </label>
 
-            <label className="flex items-start gap-2.5 text-sm text-neutral-700">
+            <label className="flex items-start gap-2.5 text-md text-neutral-700">
               <input
                 type="checkbox"
                 checked={form.consentValuation}
@@ -373,11 +372,11 @@ export default function PropertyMatchingForm() {
             </label>
           </div>
 
-          <p className="mt-4 text-sm text-neutral-600">
+          <p className="mt-4 text-md text-neutral-600">
             Our{" "}
             <Link
               href="/privacy-policy"
-              className="text-amber-500 hover:text-amber-600 underline"
+              className="text-[var(--text-color)] hover:text-[var(--text-color)] no-underline"
             >
               Privacy Policy and Notice
             </Link>{" "}
@@ -386,19 +385,19 @@ export default function PropertyMatchingForm() {
           </p>
 
           {error && (
-            <p className="mt-4 text-sm text-red-600" role="alert">
+            <p className="mt-4 text-md text-red-600" role="alert">
               {error}
             </p>
           )}
 
           <div className="mt-6 border-t border-neutral-200 pt-6">
-            <p className="text-sm text-neutral-500">
+            <p className="text-md text-neutral-500">
               This site is protected by reCAPTCHA and the Google{" "}
               
                 <a href="https://policies.google.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-500 hover:text-amber-600 underline"
+                className="text-[var(--text-color)] hover:text-[var(--text-color)] no-underline"
               >
                 Privacy Policy
               </a>{" "}
@@ -407,7 +406,7 @@ export default function PropertyMatchingForm() {
                 <a href="https://policies.google.com/terms"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-500 hover:text-amber-600 underline"
+                className="text-[var(--text-color)] no-underline"
               >
                 Terms of Service
               </a>{" "}
@@ -418,8 +417,7 @@ export default function PropertyMatchingForm() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-6 inline-flex items-center justify-center bg-amber-500 hover:bg-amber-600 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-white text-xs font-semibold tracking-widest uppercase px-10 py-4"
-          >
+className="mt-6 inline-flex items-center justify-center bg-[var(--btn-background)] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 text-white text-xs font-semibold tracking-[0.2em] uppercase px-10 py-4"          >
             {submitting ? "Sending..." : "Send"}
           </button>
         </form>

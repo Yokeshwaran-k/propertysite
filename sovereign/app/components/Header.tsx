@@ -3,9 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import SearchHeader from "./SearchHeader";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const menuItems = [
     { name: "SALES", href: "/selling" },
@@ -18,6 +20,11 @@ export default function Header() {
   ];
 
   return (
+  <>
+     {searchOpen && (
+    <SearchHeader close={() => setSearchOpen(false)} />
+      )}
+       {!searchOpen && (
     <header className="bg-[#4f5054] text-white sticky top-0 z-50 ">
       <div className="max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-24 lg:h-[110px] flex items-center justify-between">
         {/* Logo */}
@@ -47,8 +54,9 @@ export default function Header() {
 
         {/* Right Side - Desktop */}
         <div className="hidden xl:flex items-center gap-8">
-          <Link
-            href="#"
+          <button
+                onClick={() => setSearchOpen(true)}
+                aria-label="Property search"
             className="flex items-center gap-2 uppercase tracking-[1.5px] text-[13px] hover:text-[#d5a52b] transition whitespace-nowrap"
           >
             <svg
@@ -62,8 +70,9 @@ export default function Header() {
               <circle cx="11" cy="11" r="7" />
               <line x1="21" y1="21" x2="16.6" y2="16.6" />
             </svg>
+
             PROPERTY SEARCH
-          </Link>
+          </button>
 
           <Link
             href="#"
@@ -75,10 +84,14 @@ export default function Header() {
 
         {/* Mobile / Tablet: Search icon + Hamburger */}
         <div className="flex xl:hidden items-center gap-4">
-          <Link href="#" aria-label="Property search" className="text-[#d5a52b]">
+         <button
+                onClick={() => setSearchOpen(true)}
+                aria-label="Property search"
+            className="flex items-center gap-2 uppercase tracking-[1.5px] text-[13px] hover:text-[#d5a52b] transition whitespace-nowrap"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
+              className="w-4 h-4 text-[#d5a52b]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -87,7 +100,8 @@ export default function Header() {
               <circle cx="11" cy="11" r="7" />
               <line x1="21" y1="21" x2="16.6" y2="16.6" />
             </svg>
-          </Link>
+
+          </button>
 
           <button
             aria-label="Toggle menu"
@@ -159,6 +173,9 @@ export default function Header() {
           </Link>
         </nav>
       </div>
-    </header>
+        </header>
+        )}
+      
+      </>
   );
 }
