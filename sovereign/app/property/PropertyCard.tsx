@@ -72,87 +72,106 @@ export default function PropertyCard({ property }: { property: PropertySummary }
     ? "/images/no-image.png"
     : property.imageUrl || "/images/no-image.png";
 //console.log(property);
-  return (
-    
-    <div className="flex gap-4 border-b border-gray-200 py-4">
+return (
+  <article className="group overflow-hidden bg-white shadow-[0_8px_25px_rgba(0,0,0,0.08)] transition hover:shadow-[0_12px_35px_rgba(0,0,0,0.15)]">
+    <div className="flex flex-col md:flex-row">
+
+      {/* IMAGE */}
+
       <Link
         href={detailHref}
-        className="relative h-28 w-40 flex-shrink-0 overflow-hidden rounded-sm bg-gray-100 sm:h-32 sm:w-48"
+        className="relative h-[250px] w-full overflow-hidden md:h-[250px] md:w-[42%]"
       >
-        {property.imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={heading || property.title}
-            fill
-            sizes="192px"
-            className="object-cover"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-xs text-gray-400">
-            No image
-          </div>
-        )}
+        <Image
+          src={imageUrl}
+          alt={heading}
+          fill
+          className="object-cover duration-500 group-hover:scale-105"
+        />
+
         {property.statusLabel && (
-          <span className="absolute left-0 top-2 bg-amber-600 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+          <span className="absolute left-0 top-6 bg-[#c99b2d] px-5 py-2 text-xs font-bold uppercase tracking-[2px] text-white">
             {property.statusLabel}
           </span>
         )}
       </Link>
 
-      <div className="flex min-w-0 flex-1 flex-col justify-between">
+      {/* CONTENT */}
+
+      <div className="flex flex-1 flex-col justify-between p-6">
+
         <div>
+
           {eyebrow && (
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+            <p className="text-sm font-semibold uppercase tracking-[1.5px] text-[#c99b2d]">
               {eyebrow}
             </p>
           )}
-          <Link href={detailHref} className="block">
-            <h3 className="mt-0.5 truncate text-base font-semibold text-gray-900 hover:text-amber-700">
+
+          <Link href={detailHref}>
+            <h2 className="mt-2 text-[28px] leading-tight font-light text-[#1b2430] transition hover:text-[#c99b2d]">
               {heading}
-            </h3>
+            </h2>
           </Link>
-          <p className="mt-0.5 text-sm font-medium text-gray-800">
+
+          <p className="mt-4 text-xl font-bold text-[#1b2430]">
             {property.priceDisplay}
           </p>
 
-          <div className="mt-1 flex items-center gap-3 text-sm text-gray-600">
+          {/* FEATURES */}
+
+          <div className="mt-4 flex items-center gap-5 text-base text-[#3f3f3f]">
+
             {property.bedrooms !== null && (
-              <span className="flex items-center gap-1">
-                <BedIcon /> {property.bedrooms}
+              <span className="flex items-center gap-2">
+                <BedIcon />
+                {property.bedrooms}
               </span>
             )}
+
             {property.bathrooms !== null && (
-              <span className="flex items-center gap-1">
-                <BathIcon /> {property.bathrooms}
+              <span className="flex items-center gap-2">
+                <BathIcon />
+                {property.bathrooms}
               </span>
             )}
+
             {property.receptionrooms !== null && (
-              <span className="flex items-center gap-1">
-                <ReceptionIcon /> {property.receptionrooms}
+              <span className="flex items-center gap-2">
+                <ReceptionIcon />
+                {property.receptionrooms}
               </span>
             )}
+
           </div>
 
           {property.excerpt && (
-            <p className="mt-1 line-clamp-2 text-sm text-gray-500">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-gray-600 line-clamp-2">
               {property.excerpt}
             </p>
           )}
         </div>
 
-        <div className="mt-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
-          <button
-            type="button"
-            className="text-amber-700 hover:text-amber-900"
-          >
-            Save to shortlist
+        {/* FOOTER */}
+
+        <div className="mt-5 flex items-center gap-6">
+
+          <button className="font-semibold uppercase tracking-[3px] text-[#2f3542] transition hover:text-[#c99b2d]">
+            ★ Save to Shortlist
           </button>
-          <span className="text-gray-300">|</span>
-          <Link href={detailHref} className="text-amber-700 hover:text-amber-900">
-            More details
+
+          <Link
+            href={detailHref}
+            className="font-semibold uppercase tracking-[3px] text-[#2f3542] transition hover:text-[#c99b2d]"
+          >
+            › More Details
           </Link>
+
         </div>
+
       </div>
+
     </div>
-  );
+  </article>
+);
 }

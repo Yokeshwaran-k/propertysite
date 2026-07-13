@@ -20,11 +20,11 @@ export default function PropertyList({
       <p className="mb-2 text-sm font-medium text-gray-500">
         {total} {total === 1 ? "Property" : "Properties"}
       </p>
-      <div>
-        {properties.map((property) => (
-          <PropertyCard key={property.id} property={property} />
-        ))}
-      </div>
+     <div className="flex flex-col gap-8">
+  {properties.map((property) => (
+    <PropertyCard key={property.id} property={property} />
+  ))}
+</div>
     </div>
   );
 }
