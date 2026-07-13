@@ -185,7 +185,7 @@ export default async function PropertyDetailPage({
     {/* Right Gallery */}
     <div className="order-1 lg:order-2 lg:col-span-7">
       <PropertyGallery
-        images={["/images/no-image.png"]}
+        images={["/images/property-image.jpg"]}
         statusLabel={property.statusLabel}
         title={heading || property.title}
       />
@@ -227,7 +227,7 @@ export default async function PropertyDetailPage({
             {property.floorPlanUrl && (
               <div className="relative h-72 w-full overflow-hidden rounded-sm border border-gray-200">
                 <Image
-                  src={"/images/no-image.png"}
+                  src={"/images/property-image.jpg"}
                   alt="Floorplan"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -238,7 +238,7 @@ export default async function PropertyDetailPage({
             {property.epcUrl && (
               <div className="relative h-72 w-full overflow-hidden rounded-sm border border-gray-200">
                 <Image
-                                  src={"/images/no-image.png"}
+                                  src={"/images/property-image.jpg"}
                                   
                   alt="EPC"
                   fill

@@ -69,8 +69,8 @@ export default function PropertyCard({ property }: { property: PropertySummary }
   const imageUrl =
   property.imageUrl &&
   property.imageUrl.startsWith("http") // need to update the actual url
-    ? "/images/no-image.png"
-    : property.imageUrl || "/images/no-image.png";
+    ? "/images/property-image.jpg"
+    : property.imageUrl || "/images/property-image.jpg";
 //console.log(property);
 return (
   <article className="group overflow-hidden bg-white shadow-[0_8px_25px_rgba(0,0,0,0.08)] transition hover:shadow-[0_12px_35px_rgba(0,0,0,0.15)]">

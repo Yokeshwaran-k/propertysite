@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SearchHeaderProps {
+  open: boolean;
   close: () => void;
 }
-
-export default function SearchHeader({ close }: SearchHeaderProps) {
-  const router = useRouter();
+export default function SearchHeader({
+  open,
+  close,
+}: SearchHeaderProps) {  const router = useRouter();
 
 const [category, setCategory] = useState("9");
 const [location, setLocation] = useState("");
@@ -27,8 +29,17 @@ const [maxPrice, setMaxPrice] = useState("");
 
   router.push(`/property-search?${params.toString()}`);
 };
-  return (
-<div className="fixed top-0 left-0 right-0 z-[999] bg-[#111714]">
+return (
+  <div
+    className={`fixed left-0 right-0 top-0 z-[999]
+      bg-[#111714] shadow-2xl
+      transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
+      ${
+        open
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-full opacity-0 pointer-events-none"
+      }`}
+  >
   <div className="max-w-[1180px] mx-auto min-h-[80px] lg:min-h-[120px] px-4 py-5 lg:py-8 flex flex-wrap lg:flex-nowrap items-center justify-center gap-4">
     <div className="w-full sm:w-[150px] lg:w-[140px] border-b lg:border-b-0 lg:border-r border-white/20 lg:pr-5 pb-2 lg:pb-0">
                     <select

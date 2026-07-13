@@ -21,11 +21,12 @@ export default function Header() {
 
   return (
   <>
-     {searchOpen && (
-    <SearchHeader close={() => setSearchOpen(false)} />
-      )}
-       {!searchOpen && (
-    <header className="bg-[#4f5054] text-white sticky top-0 z-50 ">
+     <SearchHeader
+  open={searchOpen}
+  close={() => setSearchOpen(false)}
+/>
+      
+    <header className="bg-[#4f5054] text-white sticky top-0 z-50">
       <div className="max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-24 lg:h-[110px] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
@@ -174,7 +175,7 @@ export default function Header() {
         </nav>
       </div>
         </header>
-        )}
+      
       
       </>
   );

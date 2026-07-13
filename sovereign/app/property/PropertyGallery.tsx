@@ -17,12 +17,12 @@ export default function PropertyGallery({
 
   const safeImage = (url: string | null | undefined) => {
   if (!url) {
-    return "/images/no-image.png";
+    return "/images/property-image.jpg";
   }
 
   // Ignore invalid local WordPress hostname
   if (url.includes("https")) {
-    return "/images/no-image.png";
+    return "/images/property-image.jpg";
   }
 
   return url;
