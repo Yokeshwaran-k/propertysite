@@ -60,105 +60,138 @@ export default async function PropertyDetailPage({
   return (
     <div>
       {/* Hero */}
-      <div className="border-b border-gray-200 bg-gray-50 py-8">
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 lg:grid-cols-12">
-          <div className="order-2 lg:order-1 lg:col-span-5">
-            <h5 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-              {property.bedrooms ? `${property.bedrooms} bed` : ""} for{" "}
-              {property.statusLabel || "Sale"}
-            </h5>
-            <p className="mt-1 text-xl font-semibold text-gray-900">{heading}</p>
-            <p className="mt-1 text-2xl font-bold text-amber-700">
-              {property.priceDisplay}
-            </p>
+   <div className="border-b border-white/10 bg-[#4f5054] py-10">
+  <div className="mx-auto grid max-w-5xl gap-10 px-6 lg:grid-cols-12">
+    {/* Left Content */}
+    <div className="order-2 lg:order-1 lg:col-span-5">
+      <h5 className="text-sm font-semibold uppercase tracking-[2px] text-white">
+        {property.bedrooms ? `${property.bedrooms} Bed` : ""} For{" "}
+        {property.statusLabel || "Sale"}
+      </h5>
 
-            <ul className="mt-6 flex gap-6 text-gray-700">
-              {property.bedrooms !== null && (
-                <li className="flex flex-col items-center gap-1 text-sm">
-                  <BedIcon />
-                  {property.bedrooms}
-                </li>
-              )}
-              {property.bathrooms !== null && (
-                <li className="flex flex-col items-center gap-1 text-sm">
-                  <BathIcon />
-                  {property.bathrooms}
-                </li>
-              )}
-              {property.receptionrooms !== null && (
-                <li className="flex flex-col items-center gap-1 text-sm">
-                  <SofaIcon />
-                  {property.receptionrooms}
-                </li>
-              )}
-            </ul>
+      <h1 className="mt-2 text-4xl font-light leading-tight text-white">
+        {heading}
+      </h1>
 
-            <div className="mt-4">
-              <ShortlistButton propertyId={property.id} />
-            </div>
+      <p className="mt-3 text-3xl font-bold text-white">
+        {property.priceDisplay}
+      </p>
 
-            <div className="mt-6 flex items-center gap-4 text-sm">
-              <a href="#map" className="font-semibold uppercase tracking-wide text-gray-600 hover:text-amber-700">
-                Map
-              </a>
-              <a href="#floorplansEpcs" className="font-semibold uppercase tracking-wide text-gray-600 hover:text-amber-700">
-                Floorplans
-              </a>
-            </div>
+      {/* Property Features */}
+      <ul className="mt-8 flex gap-8 text-white">
+        {property.bedrooms !== null && (
+          <li className="flex flex-col items-center gap-2 text-sm">
+            <BedIcon />
+            <span>{property.bedrooms}</span>
+          </li>
+        )}
 
-            <div className="mt-4 flex items-center gap-3">
-              <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Share
-              </span>
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-gray-500 hover:text-amber-700"
-                aria-label="Share on Facebook"
-              >
-                Facebook
-              </a>
-              <a
-                href={`http://twitter.com/share?text=${encodeURIComponent(heading)}&url=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-gray-500 hover:text-amber-700"
-                aria-label="Share on Twitter"
-              >
-                Twitter
-              </a>
-            </div>
+        {property.bathrooms !== null && (
+          <li className="flex flex-col items-center gap-2 text-sm">
+            <BathIcon />
+            <span>{property.bathrooms}</span>
+          </li>
+        )}
 
-            <div className="mt-8 border-t border-gray-200 pt-6">
-              <a
-                href={`/viewing-request?propid=${property.id}`}
-                className="inline-block rounded-sm bg-[#c69627] px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white hover:bg-[#a8791f]"
-              >
-                Book a viewing
-              </a>
-              <p className="mt-4 text-start text-sm text-gray-600">
-                or call:{" "}
-                <a href="tel:02089855800" className="text-amber-700 hover:underline">
-                  020 8985 5800
-                </a>{" "}
-                or{" "}
-                <a href="tel:02082201500" className="text-amber-700 hover:underline">
-                  020 8220 1500
-                </a>
-              </p>
-            </div>
-          </div>
+        {property.receptionrooms !== null && (
+          <li className="flex flex-col items-center gap-2 text-sm">
+            <SofaIcon />
+            <span>{property.receptionrooms}</span>
+          </li>
+        )}
+      </ul>
 
-          <div className="order-1 lg:order-2 lg:col-span-7">
-            <PropertyGallery
-             images={["/images/no-image.png"]}
-              statusLabel={property.statusLabel}
-              title={heading || property.title}
-            />
-          </div>
-        </div>
+      {/* Shortlist */}
+      <div className="mt-6">
+        <ShortlistButton propertyId={property.id} />
       </div>
+
+      {/* Navigation */}
+      <div className="mt-8 flex items-center gap-6 text-sm">
+        <a
+          href="#map"
+          className="font-semibold uppercase tracking-[2px] text-white transition hover:text-[#c99b2d]"
+        >
+          Map
+        </a>
+
+        <a
+          href="#floorplansEpcs"
+          className="font-semibold uppercase tracking-[2px] text-white transition hover:text-[#c99b2d]"
+        >
+          Floorplans
+        </a>
+      </div>
+
+      {/* Share */}
+      <div className="mt-6 flex items-center gap-4">
+        <span className="text-xs font-semibold uppercase tracking-[2px] text-white">
+          Share
+        </span>
+
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            shareUrl
+          )}`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="text-white transition hover:text-[#c99b2d]"
+          aria-label="Share on Facebook"
+        >
+          Facebook
+        </a>
+
+        <a
+          href={`http://twitter.com/share?text=${encodeURIComponent(
+            heading
+          )}&url=${encodeURIComponent(shareUrl)}`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="text-white transition hover:text-[#c99b2d]"
+          aria-label="Share on Twitter"
+        >
+          Twitter
+        </a>
+      </div>
+
+      {/* CTA */}
+      <div className="mt-10 border-t border-white/20 pt-8">
+        <a
+          href={`/viewing-request?propid=${property.id}`}
+          className="inline-block bg-[#c99b2d] px-8 py-4 text-sm font-semibold uppercase tracking-[2px] text-white transition hover:bg-[#b68b29]"
+        >
+          Book a Viewing
+        </a>
+
+        <p className="mt-5 text-sm leading-7 text-white">
+          or call{" "}
+          <a
+            href="tel:02089855800"
+            className="font-semibold text-white underline underline-offset-4 hover:text-[#c99b2d]"
+          >
+            020 8985 5800
+          </a>{" "}
+          or{" "}
+          <a
+            href="tel:02082201500"
+            className="font-semibold text-white underline underline-offset-4 hover:text-[#c99b2d]"
+          >
+            020 8220 1500
+          </a>
+        </p>
+      </div>
+    </div>
+
+    {/* Right Gallery */}
+    <div className="order-1 lg:order-2 lg:col-span-7">
+      <PropertyGallery
+        images={["/images/no-image.png"]}
+        statusLabel={property.statusLabel}
+        title={heading || property.title}
+      />
+    </div>
+  </div>
+</div>
 
       {/* Description */}
       <section className="mx-auto max-w-5xl px-4 py-8">
