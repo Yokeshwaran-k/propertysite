@@ -20,6 +20,37 @@ function BathIcon() {
     </svg>
   );
 }
+function ReceptionIcon() {
+  return (
+    <svg
+      className="h-4 w-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+    >
+      {/* Person */}
+      <circle cx="12" cy="6" r="2" />
+      <path
+        d="M9 11a3 3 0 0 1 6 0"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Reception desk */}
+      <path
+        d="M4 14h16v6H4z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 14v6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function PropertyCard({ property }: { property: PropertySummary }) {
   const heading =
@@ -35,8 +66,14 @@ export default function PropertyCard({ property }: { property: PropertySummary }
     .join(" ");
 
   const detailHref = `/property/${property.slug}`;
-
+  const imageUrl =
+  property.imageUrl &&
+  property.imageUrl.startsWith("http") // need to update the actual url
+    ? "/images/no-image.png"
+    : property.imageUrl || "/images/no-image.png";
+//console.log(property);
   return (
+    
     <div className="flex gap-4 border-b border-gray-200 py-4">
       <Link
         href={detailHref}
@@ -44,7 +81,7 @@ export default function PropertyCard({ property }: { property: PropertySummary }
       >
         {property.imageUrl ? (
           <Image
-            src={property.imageUrl}
+            src={imageUrl}
             alt={heading || property.title}
             fill
             sizes="192px"
@@ -87,6 +124,11 @@ export default function PropertyCard({ property }: { property: PropertySummary }
             {property.bathrooms !== null && (
               <span className="flex items-center gap-1">
                 <BathIcon /> {property.bathrooms}
+              </span>
+            )}
+            {property.receptionrooms !== null && (
+              <span className="flex items-center gap-1">
+                <ReceptionIcon /> {property.receptionrooms}
               </span>
             )}
           </div>

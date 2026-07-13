@@ -37,6 +37,7 @@ export interface PropertySummary {
   priceDisplay: string;
   bedrooms: number | null;
   bathrooms: number | null;
+  receptionrooms: number | null;
   propertyType: string | null;
   statusKey: string | null; // raw cp_status, e.g. for_sale / sold / stc
   statusLabel: string | null; // cp_xstatus, pre-formatted e.g. "For Sale"
@@ -52,6 +53,17 @@ export interface PropertySearchResult {
   page: number;
   perPage: number;
   totalPages: number;
+}
+
+// Extra fields only needed on the single-property detail page.
+export interface PropertyDetail extends PropertySummary {
+  description: string;
+  lat: number | null;
+  lng: number | null;
+  epcUrl: string | null;
+  floorPlanUrl: string | null;
+  bullets: string[];
+  images: string[];
 }
 
 function stripPriceEntities(value: string | null): number | null {
@@ -72,6 +84,15 @@ function formatGBP(value: number | null): string {
     currency: "GBP",
     maximumFractionDigits: 0,
   }).format(value);
+}
+
+function cleanHtml(html: string | null): string {
+  if (!html) return "";
+  // The imported WP content has a lot of empty <h3></h3><p></p> noise.
+  return html
+    .replace(/<(h1|h2|h3|h4|p)>\s*<\/\1>/gi, "")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
 }
 
 /**
@@ -160,6 +181,7 @@ export async function getProperties(
     LEFT JOIN wp_postmeta pm_price   ON pm_price.post_id = p.ID   AND pm_price.meta_key = 'cp_price'
     LEFT JOIN wp_postmeta pm_beds    ON pm_beds.post_id = p.ID    AND pm_beds.meta_key = 'cp_number_of_bedrooms'
     LEFT JOIN wp_postmeta pm_baths   ON pm_baths.post_id = p.ID   AND pm_baths.meta_key = 'cp_bathrooms'
+    LEFT JOIN wp_postmeta pm_reception ON pm_reception.post_id = p.ID AND pm_reception.meta_key = 'cp_number_of_receptionrooms'
     LEFT JOIN wp_postmeta pm_status  ON pm_status.post_id = p.ID  AND pm_status.meta_key = 'cp_status'
     LEFT JOIN wp_postmeta pm_xstatus ON pm_xstatus.post_id = p.ID AND pm_xstatus.meta_key = 'cp_xstatus'
     LEFT JOIN wp_postmeta pm_type    ON pm_type.post_id = p.ID    AND pm_type.meta_key = 'cp_type'
@@ -184,6 +206,7 @@ export async function getProperties(
       p.post_excerpt AS excerpt,
       pm_price.meta_value AS priceRaw,
       pm_beds.meta_value AS bedrooms,
+      pm_reception.meta_value AS receptionrooms,
       pm_baths.meta_value AS bathrooms,
       pm_type.meta_value AS propertyType,
       pm_status.meta_value AS statusKey,
@@ -218,6 +241,7 @@ export async function getProperties(
       price,
       priceDisplay: formatGBP(price),
       bedrooms: r.bedrooms ? parseInt(r.bedrooms, 10) : null,
+      receptionrooms: r.receptionrooms ? parseInt(r.receptionrooms, 10) : null,
       bathrooms: r.bathrooms ? parseInt(r.bathrooms, 10) : null,
       propertyType: r.propertyType ?? null,
       statusKey: r.statusKey ?? null,
@@ -235,5 +259,102 @@ export async function getProperties(
     page,
     perPage,
     totalPages: Math.max(1, Math.ceil(total / perPage)),
+  };
+}
+
+/**
+ * Fetches a single property by its post_name (slug) for the detail page.
+ * Also pulls cp_bullets (multi-row in wp_postmeta, so it needs its own
+ * query) and the gallery images (attachments with post_parent = this post).
+ */
+export async function getPropertyBySlug(
+  slug: string
+): Promise<PropertyDetail | null> {
+  const sql = `
+    SELECT
+      p.ID AS id,
+      p.post_name AS slug,
+      p.post_title AS title,
+      p.post_excerpt AS excerpt,
+      p.post_content AS content,
+      pm_price.meta_value AS priceRaw,
+      pm_beds.meta_value AS bedrooms,
+      pm_baths.meta_value AS bathrooms,
+      pm_reception.meta_value AS receptionrooms,
+      pm_type.meta_value AS propertyType,
+      pm_status.meta_value AS statusKey,
+      pm_xstatus.meta_value AS statusLabel,
+      pm_street.meta_value AS street,
+      pm_city.meta_value AS city,
+      pm_address.meta_value AS displayAddress,
+      pm_lat.meta_value AS lat,
+      pm_lng.meta_value AS lng,
+      pm_epc.meta_value AS epcUrl,
+      pm_floorplan.meta_value AS floorPlanUrl,
+      img.guid AS imageUrl
+    FROM wp_posts p
+    LEFT JOIN wp_postmeta pm_price     ON pm_price.post_id = p.ID     AND pm_price.meta_key = 'cp_price'
+    LEFT JOIN wp_postmeta pm_beds      ON pm_beds.post_id = p.ID      AND pm_beds.meta_key = 'cp_number_of_bedrooms'
+    LEFT JOIN wp_postmeta pm_baths     ON pm_baths.post_id = p.ID     AND pm_baths.meta_key = 'cp_bathrooms'
+    LEFT JOIN wp_postmeta pm_reception ON pm_reception.post_id = p.ID AND pm_reception.meta_key = 'cp_number_of_receptionrooms'
+    LEFT JOIN wp_postmeta pm_status    ON pm_status.post_id = p.ID    AND pm_status.meta_key = 'cp_status'
+    LEFT JOIN wp_postmeta pm_xstatus   ON pm_xstatus.post_id = p.ID   AND pm_xstatus.meta_key = 'cp_xstatus'
+    LEFT JOIN wp_postmeta pm_type      ON pm_type.post_id = p.ID      AND pm_type.meta_key = 'cp_type'
+    LEFT JOIN wp_postmeta pm_street    ON pm_street.post_id = p.ID    AND pm_street.meta_key = 'cp_street'
+    LEFT JOIN wp_postmeta pm_city      ON pm_city.post_id = p.ID      AND pm_city.meta_key = 'cp_city'
+    LEFT JOIN wp_postmeta pm_address   ON pm_address.post_id = p.ID   AND pm_address.meta_key = 'cp_displayable_address'
+    LEFT JOIN wp_postmeta pm_lat       ON pm_lat.post_id = p.ID       AND pm_lat.meta_key = 'cp_lat'
+    LEFT JOIN wp_postmeta pm_lng       ON pm_lng.post_id = p.ID       AND pm_lng.meta_key = 'cp_lng'
+    LEFT JOIN wp_postmeta pm_epc       ON pm_epc.post_id = p.ID       AND pm_epc.meta_key = 'cp_epc'
+    LEFT JOIN wp_postmeta pm_floorplan ON pm_floorplan.post_id = p.ID AND pm_floorplan.meta_key = 'cp_floor_plan_url'
+    LEFT JOIN wp_postmeta pm_thumb     ON pm_thumb.post_id = p.ID     AND pm_thumb.meta_key = '_thumbnail_id'
+    LEFT JOIN wp_posts img ON img.ID = CAST(pm_thumb.meta_value AS UNSIGNED)
+    WHERE p.post_name = ? AND p.post_status = 'publish' AND p.post_type = 'post'
+    LIMIT 1
+  `;
+
+  const [rows] = await db.query<RowDataPacket[]>(sql, [slug]);
+  const r = rows[0];
+  if (!r) return null;
+
+  const [bulletRows] = await db.query<RowDataPacket[]>(
+    `SELECT meta_value FROM wp_postmeta WHERE post_id = ? AND meta_key = 'cp_bullets'`,
+    [r.id]
+  );
+
+  const [imageRows] = await db.query<RowDataPacket[]>(
+    `SELECT guid FROM wp_posts
+     WHERE post_parent = ? AND post_type = 'attachment' AND post_mime_type LIKE 'image%'
+     ORDER BY menu_order, ID`,
+    [r.id]
+  );
+
+  const price = stripPriceEntities(r.priceRaw as string | null);
+  const images = imageRows.map((row) => row.guid as string);
+
+  return {
+    id: r.id,
+    slug: r.slug,
+    title: r.title,
+    excerpt: (r.excerpt as string) || "",
+    description: cleanHtml(r.content as string | null),
+    price,
+    priceDisplay: formatGBP(price),
+    bedrooms: r.bedrooms ? parseInt(r.bedrooms, 10) : null,
+    bathrooms: r.bathrooms ? parseInt(r.bathrooms, 10) : null,
+    receptionrooms: r.receptionrooms ? parseInt(r.receptionrooms, 10) : null,
+    propertyType: r.propertyType ?? null,
+    statusKey: r.statusKey ?? null,
+    statusLabel: r.statusLabel ?? null,
+    street: r.street ?? null,
+    city: r.city ?? null,
+    displayAddress: r.displayAddress ?? null,
+    lat: r.lat ? parseFloat(r.lat) : null,
+    lng: r.lng ? parseFloat(r.lng) : null,
+    epcUrl: r.epcUrl || null,
+    floorPlanUrl: r.floorPlanUrl || null,
+    bullets: bulletRows.map((b) => b.meta_value as string).filter(Boolean),
+    images: images.length > 0 ? images : r.imageUrl ? [r.imageUrl] : [],
+    imageUrl: r.imageUrl ?? null,
   };
 }
