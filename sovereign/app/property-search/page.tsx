@@ -16,11 +16,11 @@ export default async function PropertySearchPage({
   searchParams,
 }: {
   searchParams: Promise<SearchParams> | SearchParams;
-}) {
-  const resolvedParams = await searchParams;
+  }) {
 
+  const resolvedParams = await searchParams;
   const category: PropertyCategory =
-    first(resolvedParams.type) === "rent" ? "rent" : "sale";
+    first(resolvedParams.cat) === "9" ? "sale" : "rent";
   const addressKeyword = first(resolvedParams.address_keyword) || undefined;
   const maxPrice = first(resolvedParams.maxprice)
     ? parseInt(first(resolvedParams.maxprice) as string, 10)
@@ -34,6 +34,7 @@ export default async function PropertySearchPage({
   const page = first(resolvedParams.page)
     ? parseInt(first(resolvedParams.page) as string, 10)
     : 1;
+
 
   const result = await getProperties({
     category,
