@@ -13,7 +13,7 @@ export default function SearchHeader({
   close,
 }: SearchHeaderProps) {  const router = useRouter();
 
-const [category, setCategory] = useState("9");
+const [category, setCategory] = useState("");
 const [location, setLocation] = useState("");
 const [maxPrice, setMaxPrice] = useState("");
   const [bedrooms, setBedrooms] = useState("");
