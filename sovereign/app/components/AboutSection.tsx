@@ -15,7 +15,7 @@ export default function AboutSection() {
 
             <p className="mb-4">
               Since our foundation in 1989, Sovereign House has become
-              one of the area's most progressive and successful estate agents.
+              one of the area`s most progressive and successful estate agents.
             </p>
 
             <Link
