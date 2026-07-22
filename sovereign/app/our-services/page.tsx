@@ -54,7 +54,8 @@ export default function OurServices() {
                 src="/images/valuer.jpg"
                 alt="Selling your property - Sovereign House"
                 fill
-                className="object-cover"
+                  className="object-cover"
+                  sizes="(max-width: 1300px) 100vw, 58vw"
               />
             </div>
           </div>

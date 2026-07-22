@@ -45,7 +45,8 @@ export default function AboutHero() {
               <Image
                 src="/images/office.jpg"
                 alt="Selling your property - Sovereign House"
-                fill
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 58vw"
                 className="object-cover"
               />
             </div>

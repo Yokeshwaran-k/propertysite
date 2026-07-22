@@ -11,6 +11,7 @@ export default function ConveyancingSection() {
             src="/images/solicitor.jpg"
             alt="Request a conveyancing quotation"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
             loading="lazy"
           />

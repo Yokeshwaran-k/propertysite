@@ -45,7 +45,8 @@ export default function SellingHero() {
                 src="/images/valuer.jpg"
                 alt="Selling your property - Sovereign House"
                 fill
-                className="object-cover"
+                    className="object-cover"
+                     sizes="(max-width: 1024px) 100vw, 58vw"
               />
             </div>
           </div>
