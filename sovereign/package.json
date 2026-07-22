@@ -9,9 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.1092.0",
     "lucide-react": "^1.23.0",
     "mysql2": "^3.22.6",
     "next": "16.2.9",
+    "nodemailer": "^9.0.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
