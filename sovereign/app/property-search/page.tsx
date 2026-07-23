@@ -1,9 +1,7 @@
-import { getProperties, type PropertyCategory, type SortOption }  from "@/lib/properties";
+import { getProperties, type PropertyCategory, type SortOption } from "@/lib/properties";
 import PropertyList from "@/app/property/PropertyList";
-import SearchBar from "@/app/property/SearchBar";
-import SortBar from "@/app/property/SortBar";
+import SearchPanel from "@/app/property/SearchPanel";
 import Pagination from "@/app/property/Pagination";
-
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -11,8 +9,6 @@ function first(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
-// Works whether Next.js passes searchParams as a plain object (14) or a
-// Promise (15) — awaiting a non-promise value just resolves immediately.
 export default async function PropertySearchPage({
   searchParams,
 }: {
@@ -20,21 +16,20 @@ export default async function PropertySearchPage({
 }) {
   const resolvedParams = await searchParams;
 
-  const category: PropertyCategory =
-       first(resolvedParams.cat) === "10" ? "rent" : "sale";
+  const type = first(resolvedParams.type);
+  const category: PropertyCategory = type === "rent" ? "rent" : "sale";
+
   const addressKeyword = first(resolvedParams.address_keyword) || undefined;
-  const maxPrice = first(resolvedParams.maxprice)
-    ? parseInt(first(resolvedParams.maxprice) as string, 10)
-    : undefined;
-  const bedrooms = first(resolvedParams.bedrooms)
-    ? parseInt(first(resolvedParams.bedrooms) as string, 10)
-    : undefined;
+  const minPrice = first(resolvedParams.minprice) ? parseInt(first(resolvedParams.minprice) as string, 10) : undefined;
+  const maxPrice = first(resolvedParams.maxprice) ? parseInt(first(resolvedParams.maxprice) as string, 10) : undefined;
+  const bedrooms = first(resolvedParams.bedrooms) ? parseInt(first(resolvedParams.bedrooms) as string, 10) : undefined;
+  const maxBedrooms = first(resolvedParams.maxbedrooms) ? parseInt(first(resolvedParams.maxbedrooms) as string, 10) : undefined;
+  const propertyType = first(resolvedParams.propertytype) || undefined;
   const showStc = first(resolvedParams.showstc) === "on";
   const showSold = first(resolvedParams.showsold) === "on";
   const sort = (first(resolvedParams.sort) as SortOption) || "newest";
-  const page = first(resolvedParams.page)
-    ? parseInt(first(resolvedParams.page) as string, 10)
-    : 1;
+  const page = first(resolvedParams.page) ? parseInt(first(resolvedParams.page) as string, 10) : 1;
+  const viewMode = (first(resolvedParams.view) as "list" | "grid" | "map") || "list";
 
   const result = await getProperties({
     category,
@@ -46,58 +41,30 @@ export default async function PropertySearchPage({
     sort,
     page,
     perPage: 20,
+    // minPrice, maxBedrooms, propertyType — wire these into getProperties
+    // once lib/properties supports them
   });
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8">
-      <div className="mb-4 flex gap-6 border-b border-gray-200 text-sm font-semibold uppercase tracking-wide">
-        <a
-          href="/property-search?type=sale"
-          className={`border-b-2 pb-2 ${
-            category === "sale"
-              ? "border-amber-700 text-amber-700"
-              : "border-transparent text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          For Sale
-        </a>
-        <a
-          href="/property-search?type=rent"
-          className={`border-b-2 pb-2 ${
-            category === "rent"
-              ? "border-amber-700 text-amber-700"
-              : "border-transparent text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          To Rent
-        </a>
-      </div>
-
-      <div className="mb-6">
-        <SearchBar
-          category={category}
-          addressKeyword={addressKeyword}
-          maxPrice={maxPrice}
-          bedrooms={bedrooms}
-          showStc={showStc}
-          showSold={showSold}
-        />
-      </div>
-
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-gray-500">
-          Page {result.page} of {result.totalPages}
-        </p>
-        <SortBar sort={sort} />
-      </div>
+    <div className="mx-auto max-w-5xl px-4 py-2">
+      <SearchPanel
+        category={category}
+        addressKeyword={addressKeyword}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        minBedrooms={bedrooms}
+        maxBedrooms={maxBedrooms}
+        propertyType={propertyType}
+        showStc={showStc}
+        showSold={showSold}
+        sort={sort}
+        total={result.total}
+        viewMode={viewMode}
+      />
 
       <PropertyList properties={result.properties} total={result.total} />
 
-      <Pagination
-        page={result.page}
-        totalPages={result.totalPages}
-        searchParams={resolvedParams}
-      />
+      <Pagination page={result.page} totalPages={result.totalPages} searchParams={resolvedParams} />
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function SearchHeader({
   close,
 }: SearchHeaderProps) {  const router = useRouter();
 
-const [category, setCategory] = useState("");
+const [category, setCategory] = useState("9");
 const [location, setLocation] = useState("");
 const [maxPrice, setMaxPrice] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -71,11 +71,11 @@ return (
   className="w-full bg-transparent text-white outline-none appearance-none cursor-pointer text-sm"
 >
             <option value="" className="text-black">Max Price</option>
-            <option value="100,000" className="text-black">£100,000</option>
-            <option value="250,000" className="text-black">£250,000</option>
-            <option value="500,000" className="text-black">£500,000</option>
-            <option value="750,000" className="text-black">£750,000</option>
-            <option value="1,000,000+" className="text-black">£1,000,000+</option>
+            <option value="100000" className="text-black">£100,000</option>
+            <option value="250000" className="text-black">£250,000</option>
+            <option value="500000" className="text-black">£500,000</option>
+            <option value="750000" className="text-black">£750,000</option>
+            <option value="1000000+" className="text-black">£1,000,000+</option>
           </select>
         </div>
 

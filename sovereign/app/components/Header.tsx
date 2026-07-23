@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import SearchHeader from "./SearchHeader";
+import SearchHeader from "../property/SearchHeader";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

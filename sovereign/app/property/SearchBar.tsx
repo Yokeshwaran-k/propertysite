@@ -1,102 +1,116 @@
 export default function SearchBar({
   category,
   addressKeyword,
+  minPrice,
   maxPrice,
-  bedrooms,
-  showStc,
-  showSold,
+  minBedrooms,
+  maxBedrooms,
+  propertyType,
 }: {
   category: "sale" | "rent";
   addressKeyword?: string;
+  minPrice?: number;
   maxPrice?: number;
-  bedrooms?: number;
-  showStc?: boolean;
-  showSold?: boolean;
+  minBedrooms?: number;
+  maxBedrooms?: number;
+  propertyType?: string;
 }) {
   return (
-    <form
-      method="get"
-      action="/property-search"
-      className="flex flex-wrap items-end gap-3 rounded-sm border border-gray-200 bg-gray-50 p-4"
-    >
-      <input type="hidden" name="type" value={category} />
+    <form method="get" action="/property-search" className="grid grid-cols-4 pt-10 gap-x-10 gap-y-6">
+      <Field label="Instruction Type">
+        <select name="type" defaultValue={category} className={selectClass}>
+          <option value="sale">For Sale</option>
+          <option value="rent">To Rent</option>
+        </select>
+      </Field>
 
-      <div className="flex flex-col">
-        <label htmlFor="address_keyword" className="text-xs font-medium text-gray-600">
-          Location
-        </label>
+      <Field label="Min Price">
         <input
-          id="address_keyword"
+          name="minprice"
+          type="number"
+          min={0}
+          step={5000}
+          defaultValue={minPrice}
+          placeholder="No Minimum"
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Min Beds">
+        <select name="bedrooms" defaultValue={minBedrooms ?? ""} className={selectClass}>
+          <option value="">Please Select</option>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <option key={n} value={n}>{n}+</option>
+          ))}
+        </select>
+      </Field>
+
+      <Field label="Property Type">
+        <select name="propertytype" defaultValue={propertyType ?? ""} className={selectClass}>
+          <option value="">Any type</option>
+          <option value="house">House</option>
+          <option value="flat">Flat</option>
+          <option value="bungalow">Bungalow</option>
+          <option value="land">Land</option>
+          <option value="commercial">Commercial</option>
+        </select>
+      </Field>
+
+      <Field label="Location">
+        <input
           name="address_keyword"
           type="text"
           defaultValue={addressKeyword}
-          placeholder="Street, area or postcode"
-          className="mt-1 w-48 rounded-sm border border-gray-300 px-2 py-1.5 text-sm focus:border-amber-600 focus:outline-none"
+          placeholder="Location"
+          className={inputClass}
         />
-      </div>
+      </Field>
 
-      <div className="flex flex-col">
-        <label htmlFor="maxprice" className="text-xs font-medium text-gray-600">
-          Max price
-        </label>
+      <Field label="Max Price">
         <input
-          id="maxprice"
           name="maxprice"
           type="number"
           min={0}
           step={5000}
           defaultValue={maxPrice}
-          placeholder="Any"
-          className="mt-1 w-32 rounded-sm border border-gray-300 px-2 py-1.5 text-sm focus:border-amber-600 focus:outline-none"
+          placeholder="No Maximum"
+          className={inputClass}
         />
-      </div>
+      </Field>
 
-      <div className="flex flex-col">
-        <label htmlFor="bedrooms" className="text-xs font-medium text-gray-600">
-          Min bedrooms
-        </label>
-        <select
-          id="bedrooms"
-          name="bedrooms"
-          defaultValue={bedrooms ?? ""}
-          className="mt-1 w-24 rounded-sm border border-gray-300 px-2 py-1.5 text-sm focus:border-amber-600 focus:outline-none"
-        >
-          <option value="">Any</option>
+      <Field label="Maximum Beds">
+        <select name="maxbedrooms" defaultValue={maxBedrooms ?? ""} className={selectClass}>
+          <option value="">Please Select</option>
           {[1, 2, 3, 4, 5].map((n) => (
-            <option key={n} value={n}>
-              {n}+
-            </option>
+            <option key={n} value={n}>{n}+</option>
           ))}
         </select>
-      </div>
+      </Field>
 
-      <div className="flex items-center gap-4 pb-1.5">
-        <label className="flex items-center gap-1.5 text-sm text-gray-700">
-          <input
-            type="checkbox"
-            name="showstc"
-            defaultChecked={showStc}
-            className="h-3.5 w-3.5 accent-amber-700"
-          />
-          Show STC
-        </label>
-        <label className="flex items-center gap-1.5 text-sm text-gray-700">
-          <input
-            type="checkbox"
-            name="showsold"
-            defaultChecked={showSold}
-            className="h-3.5 w-3.5 accent-amber-700"
-          />
-          Show Sold
-        </label>
+      <div className="flex items-end">
+        <button
+          type="submit"
+          className="w-full rounded-sm bg-[#c69627] py-3 text-sm font-semibold uppercase tracking-wide text-white hover:bg-[#c69627]"
+        >
+          Search
+        </button>
       </div>
-
-      <button
-        type="submit"
-        className="ml-auto rounded-sm bg-amber-700 px-5 py-1.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-amber-800"
-      >
-        Update Search
-      </button>
     </form>
   );
 }
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+const inputClass =
+  "border-b border-gray-300 bg-transparent pb-1 text-sm text-gray-500 placeholder:text-gray-400 focus:border-amber-600 focus:outline-none";
+const selectClass =
+  "border-b border-gray-300 bg-transparent pb-1 text-sm text-gray-500 focus:border-amber-600 focus:outline-none";
